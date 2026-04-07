@@ -19,7 +19,14 @@ def index():
                 add_product = {"name": name, "price":price, "category":category}
                 items.append(add_product)
 
-        redirect(url_for("index"))
+        redirect(url_for("index"))  
+
+    choice_category = request.args.get('category', 'all')
+
+    if choice_category == 'all':
+        filter_products = items
+    else:
+        filter_products = filter(lambda item: item['category'] == choice_category, items)
 
     return render_template("index.html", items=items)
 

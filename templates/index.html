@@ -13,6 +13,17 @@
         <input type="text" name="product_category" placeholder="Category" required>
         <button type="submit" >Додати</button>
     </form>
+
+    <form method="GET">
+        {% for item in items %}
+            <select name="category">
+                <option value="all" selected="selected">All</option>
+                <option value="{{ item['category'] }}">{{ item['category'] }}</option>
+            </select>
+            <button type="submit">Застосувати</button>
+        {% endfor %}
+    </form>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}

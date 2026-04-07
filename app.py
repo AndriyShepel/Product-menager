@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect, url_for
 
 
 app = Flask(__name__)
@@ -7,18 +7,26 @@ items = []
 
 @app.route('/', methods=["POST", "GET"])
 def index():
-    global items
-    if request.method == "Post":
-        product_name = request.form.get("product_name")
-        product_price = request.form.get("product_price")
-        product_category = request.form.get("product_category")
+    if request.method == "POST":
+        name = request.form.get("product_name")
+        price = request.form.get("product_price")
+        category = request.form.get("product_category")
         for item in items:
-            if item.get("name") == product_name:
+            if item.get("name") == name:
                 flash("Такий товар вже існує")
                 break
-        else:
-            add_product = {"name": product_name, "price":product_price, "category":product_category}
-            item.append(add_product)
-    return render_template("index.html")
+            else:
+                add_product = {"name": name, "price":price, "category":category}
+                items.append(add_product)
+
+        redirect(url_for("index"))
+
+    return render_template("index.html", items=items)
+
+@app.route("/delete/<index>")
+def delete(index):
+    delete_product = items.pop(index)
+    name = delete_product.get("name")
+    flash(f"Товар {name} успішно видаленно!")
 
 app.run(debug=True)

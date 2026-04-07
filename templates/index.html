@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Product Manager</h1>
-    <form method="post">
+    <form method="POST">
         <input type="text" name="product_name" placeholder="Name" required>
         <input type="number" name="product_price" placeholder="Price" required>
         <input type="text" name="product_category" placeholder="Category" required>
@@ -16,9 +16,33 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                {{ message }}
+                <p>{{ message }}</p>
             {% endfor %}
         {% endif %}
     {% endwith %}
+    <table border="1px" cellspacing="10px" cellpadding="10px">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item['name'] }}</td>
+                    <td>{{ item['price'] }}</td>
+                    <td>{{ item['category'] }}</td>
+                    <td>
+                        <a href="{{ url_for('delete', index=loop.index0) }}">
+                            <button type="submit" >Delete Product</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

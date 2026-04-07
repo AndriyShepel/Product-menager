@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
+from models import _init_db
 
 
 app = Flask(__name__)
 
+app.secret_key = "$#Python&"
 items = []
+_init_db()
 
 @app.route('/', methods=["POST", "GET"])
 def index():

@@ -10,7 +10,7 @@ def get_product_from_category(category: str):
 def get_all_categories():
     return Product.select(Product.category).distinct().order_by(Product.category)
 
-def product_exists(name:str):
+def product_exists(name:str) -> bool:
     return Product.select().where(Product.name == name).exists()
 
 def add_product(name:str, price: float, category: str):

@@ -34,8 +34,6 @@ def index():
 
 @app.route("/delete/<index>")
 def delete(index):
-    delete_product = items.pop(index)
-    name = delete_product.get("name")
-    flash(f"Товар {name} успішно видаленно!")
+    delete_product(index)
 
 app.run(debug=True)

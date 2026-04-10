@@ -32,8 +32,8 @@ def index():
 
     return render_template("index.html", items=filter_products, choice_category=choice_category, categories=all_categories)
 
-@app.route("/delete/<index>")
-def delete(index):
-    delete_product(index)
+@app.route("/delete/<name>")
+def delete(name):
+    delete_product(name)
 
 app.run(debug=True)
